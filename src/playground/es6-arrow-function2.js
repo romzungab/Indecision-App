@@ -1,11 +1,9 @@
-'use strict';
-
-var add = function add(a, b) {
+const add =(a,b) => {
     //console.log(arguments);
     return a + b;
 };
 
-console.log(add(55, 1, 1001));
+console.log(add(55,1, 1001));
 
 // const user = {
 //     name:'Roms',
@@ -27,30 +25,22 @@ console.log(add(55, 1, 1001));
 //     }
 // };
 //using map
-var user = {
+const user = {
     name: 'Roms',
     cities: ['Iligan', 'Auckland', 'Manila'],
-    printPlacesLived: function printPlacesLived() {
-        var _this = this;
-
-        var cityMessages = this.cities.map(function (city) {
-            return _this.name + ' has lived in ' + city;
-        });
+    printPlacesLived() {
+        const cityMessages = this.cities.map((city) => this.name +' has lived in '+city);
         return cityMessages;
     }
 };
 
 console.log(user.printPlacesLived());
 
-var multiplier = {
-    multiplicand: [10, 20, 30],
+const multiplier = {
+    multiplicand:[10,20,30],
     multiplyBy: 2,
-    multiply: function multiply() {
-        var _this2 = this;
-
-        return this.multiplicand.map(function (mul) {
-            return mul * _this2.multiplyBy;
-        });
+    multiply() {
+        return this.multiplicand.map((mul) => mul * this.multiplyBy);
     }
-};
+}
 console.log(multiplier.multiply());
