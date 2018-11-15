@@ -1,6 +1,6 @@
 'use strict';
 
-console.log('App.js is runing');
+console.log('App.js is running');
 
 //JSX Javascript XML
 var app = {
@@ -8,97 +8,80 @@ var app = {
     subtitle: 'Put your life in the hands of a computer',
     options: [] //['One','Two']
 };
-var template = React.createElement(
-    'div',
-    null,
-    React.createElement(
-        'h1',
-        null,
-        app.title
-    ),
-    app.subtitle && React.createElement(
-        'p',
-        null,
-        app.subtitle
-    ),
-    React.createElement(
-        'p',
-        null,
-        app.options.length > 0 ? 'Here are your options' : 'No option'
-    ),
-    React.createElement(
-        'ol',
-        null,
-        React.createElement(
-            'li',
-            null,
-            'item one'
-        ),
-        React.createElement(
-            'li',
-            null,
-            'item two'
-        )
-    )
-);
-var user = {
-    name: 'Roms',
-    age: 36,
-    location: 'Auckland'
+var wipeOption = function wipeOption() {
+    app.options = [];
+    renderNew();
+};
+var onFormSubmit = function onFormSubmit(e) {
+    e.preventDefault(); //prevents the full page refresh
+    var option = e.target.elements.option.value;
+    if (option) {
+        app.options.push(option);
+        e.target.elements.option.value = '';
+    }
+    renderNew();
 };
 
-var userName = 'Romelyn';
-var userAge = 26;
-var userLocation = 'Auckland';
+var onMakeDecision = function onMakeDecision() {
+    var randomNum = Math.floor(Math.random() * app.options.length);
+    var option = app.options[randomNum - 1];
+    console.log(randomNum);
+    alert(option);
+};
+var appRoot = document.getElementById('app');
+var numbers = [55, 101, 1000];
 
-function getLocation(location) {
-    if (location) {
-        return React.createElement(
+var renderNew = function renderNew() {
+    var template = React.createElement(
+        'div',
+        null,
+        React.createElement(
+            'h1',
+            null,
+            app.title
+        ),
+        app.subtitle && React.createElement(
             'p',
             null,
-            'Location: ',
-            location
-        );
-    }
-}
-var count = 0;
-var addOne = function addOne() {
-    console.log('addOne');
+            app.subtitle
+        ),
+        React.createElement(
+            'button',
+            { disabled: app.options.length === 0, onClick: onMakeDecision },
+            'What should I do?'
+        ),
+        React.createElement(
+            'button',
+            { onClick: wipeOption },
+            'Remove All'
+        ),
+        React.createElement(
+            'p',
+            null,
+            app.options.length > 0 ? 'Here are your options' : 'No option'
+        ),
+        React.createElement(
+            'ol',
+            null,
+            app.options.map(function (op) {
+                return React.createElement(
+                    'li',
+                    { key: op },
+                    op
+                );
+            })
+        ),
+        React.createElement(
+            'form',
+            { onSubmit: onFormSubmit },
+            React.createElement('input', { type: 'text', id: 'option' }),
+            React.createElement(
+                'button',
+                null,
+                'Add Option'
+            )
+        )
+    );
+    ReactDOM.render(template, appRoot);
 };
-
-var minusOne = function minusOne() {
-    console.log('minusOne');
-};
-
-var reset = function reset() {
-    console.log('reset');
-};
-
-var templateTwo = React.createElement(
-    'div',
-    null,
-    React.createElement(
-        'h1',
-        null,
-        'Count:',
-        count
-    ),
-    React.createElement(
-        'button',
-        { onClick: addOne },
-        '+1'
-    ),
-    React.createElement(
-        'button',
-        { onClick: minusOne },
-        '-1'
-    ),
-    React.createElement(
-        'button',
-        { onClick: reset },
-        'reset'
-    )
-);
-
-var appRoot = document.getElementById('app');
-ReactDOM.render(templateTwo, appRoot);
+renderNew();
