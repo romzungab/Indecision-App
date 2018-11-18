@@ -1,3 +1,4 @@
+//stateless
 class IndecisionApp extends React.Component{
     constructor(props){
         super(props);
@@ -126,4 +127,13 @@ class AddOption extends React.Component{
     }
 }
 
-ReactDOM.render(<IndecisionApp />, document.getElementById('app'));
+// const User = (props) =>{
+//     return(
+//         <div>
+//             <p>Name: {props.name}</p>
+//             <p>Age:{props.age}</p>
+//         </div>
+//     );
+// }
+
+ReactDOM.render(<IndecisionApp name='Roms' age={36} />, document.getElementById('app'));
